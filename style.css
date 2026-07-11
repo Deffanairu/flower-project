@@ -1,0 +1,202 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0b0507;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: #fff;
+}
+
+/* --- Tampilan Card Awal --- */
+.card {
+    background: rgba(25, 15, 18, 0.6);
+    border: 1px solid rgba(255, 75, 110, 0.15);
+    border-radius: 24px;
+    padding: 40px 30px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255, 50, 100, 0.1);
+    backdrop-filter: blur(10px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.rose-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+h2 {
+    font-family: 'Georgia', serif;
+    font-size: 26px;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+.progress-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    height: 6px;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #ff3366, #ff6b8b);
+    height: 100%;
+    width: 0%;
+    box-shadow: 0 0 10px #ff3366;
+    transition: width 0.1s linear;
+}
+
+.status-text {
+    font-size: 12px;
+    color: #a09095;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.btn-bloom {
+    background: #2a1a1e;
+    color: #5a4a4e;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 0;
+    width: 100%;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: not-allowed;
+    transition: all 0.3s ease;
+}
+
+.btn-bloom.ready {
+    background: linear-gradient(90deg, #ff477e, #ff6b8b);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(255, 71, 126, 0.4);
+}
+
+.btn-bloom.ready:hover {
+    transform: scale(1.02);
+}
+
+/* --- Tampilan Mawar 3D & Animasi --- */
+.rose-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    transition: opacity 1s ease;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.rose-3d {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    transform-style: preserve-3d;
+    transform: rotateX(25deg) rotateY(0deg);
+    animation: slowSpin 20s linear infinite;
+}
+
+/* Bagian Batang & Daun */
+.stem {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    width: 6px;
+    height: 220px;
+    background: linear-gradient(to top, #154c2a, #277744);
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+
+.leaf {
+    position: absolute;
+    width: 30px;
+    height: 15px;
+    background: #277744;
+    border-radius: 15px 0 15px 0;
+}
+.leaf-left {
+    bottom: 160px;
+    left: calc(50% - 32px);
+    transform: rotate(-25deg);
+}
+.leaf-right {
+    bottom: 120px;
+    left: 50%;
+    border-radius: 0 15px 0 15px;
+    transform: rotate(25deg);
+}
+
+/* Struktur Bunga */
+.flower-head {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform-style: preserve-3d;
+}
+
+/* Gaya Kelopak Mawar (Sesuai Logika Pembuatan di JS) */
+.petal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: radial-gradient(circle at cubic-bezier(0.1, 0.8, 0.3, 1), #ff3b6f 20%, #b3002d 90%);
+    border-radius: 50% 50% 40% 40%;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.4), 0 4px 10px rgba(0,0,0,0.3);
+    transform-origin: bottom center;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0) rotateX(90deg);
+}
+
+/* Animasi Mekar */
+@keyframes bloomAction {
+    to {
+        opacity: 0.95;
+        transform: translate(-50%, -50%) rotateY(var(--rotY)) rotateX(var(--rotX)) translateZ(var(--transZ)) scale(var(--scale));
+    }
+}
+
+/* Text Bawah */
+.fade-in-text {
+    margin-top: 30px;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    color: #ff9ebb;
+    opacity: 0;
+    text-shadow: 0 0 10px rgba(255, 59, 111, 0.4);
+    animation: fadeInText 3s forwards 2s;
+}
+
+/* Keyframes Tambahan */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes fadeInText {
+    to { opacity: 0.7; }
+}
+
+@keyframes slowSpin {
+    0% { transform: rotateX(20deg) rotateY(0deg); }
+    100% { transform: rotateX(20deg) rotateY(360deg); }
+}
